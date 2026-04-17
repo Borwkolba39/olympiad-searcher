@@ -37,7 +37,7 @@ def check_password(username: str, password: str) -> bool:
     """Простая проверка логина и пароля"""
     # Если секретов нет (локальный запуск), используем дефолтные
     if "passwords" not in st.secrets:
-        return username == "admin" and password == "admin123"
+        return username == "admin" and password == "kolbamiha"
     
     creds = st.secrets["passwords"]
     

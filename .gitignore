@@ -1,0 +1,26 @@
+# === СЕКРЕТЫ И КОНФИГУРАЦИЯ (САМОЕ ВАЖНОЕ) ===
+.streamlit/secrets.toml
+.env
+
+# === PYTHON ===
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# === IDE И РЕДАКТОРЫ ===
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# === ОС ===
+.DS_Store
+Thumbs.db

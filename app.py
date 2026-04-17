@@ -35,7 +35,7 @@ def load_index() -> Optional[Dict[str, Any]]:
 def check_password(username: str, password: str) -> bool:
     """Простая проверка логина и пароля"""
     if "passwords" not in st.secrets:
-        return username == "admin" and password == "kolbamiha"
+        return username == "admin" and password == "admin1234"
     
     creds = st.secrets["passwords"]
     # Просто сверяем текст

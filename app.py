@@ -34,23 +34,15 @@ def load_index() -> Optional[Dict[str, Any]]:
         return None
 
 def check_password(username: str, password: str) -> bool:
-    """Проверка логина и пароля"""
-    # ПолучаемCredentials из st.secrets
-    if "credentials" not in st.secrets:
-        # Для локальной разработки (если secrets не настроен)
+    """Простая проверка логина и пароля"""
+    # Если секретов нет (локальный запуск), используем дефолтные
+    if "passwords" not in st.secrets:
         return username == "admin" and password == "admin123"
     
-    creds = st.secrets["credentials"]
+    creds = st.secrets["passwords"]
     
-    # Проверяем, есть ли такой пользователь
-    if username not in creds:
-        return False
-    
-    # Хешируем введенный пароль и сравниваем с хранимым
-    password_hash = hashlib.sha256(password.encode()).hexdigest()
-    stored_hash = creds[username]
-    
-    return password_hash == stored_hash
+    # Просто сверяем текст логина и пароля
+    return creds.get(username) == password
 
 def login():
     """Форма входа"""

@@ -5,7 +5,6 @@ from sentence_transformers import SentenceTransformer
 from rapidfuzz import fuzz
 import os
 from typing import Optional, Tuple, List, Dict, Any
-import hashlib
 
 # Настройки
 INDEX_FILE = "olympiad_index.pkl"
@@ -36,7 +35,7 @@ def load_index() -> Optional[Dict[str, Any]]:
 def check_password(username: str, password: str) -> bool:
     """Простая проверка логина и пароля"""
     if "passwords" not in st.secrets:
-        return username == "admin" and password == "admin123"
+        return username == "admin" and password == "kolbamiha"
     
     creds = st.secrets["passwords"]
     # Просто сверяем текст
@@ -82,16 +81,6 @@ def login():
                     st.error("❌ Неверный логин или пароль")
         
         st.markdown('</div>', unsafe_allow_html=True)
-        
-        # Информация для входа (только для демонстрации)
-        with st.expander("ℹ️ Информация для входа (демо)", expanded=False):
-            st.markdown("""
-            **Для локального тестирования:**
-            - Логин: `admin`
-            - Пароль: `admin123`
-            
-            **Для production используйте `.streamlit/secrets.toml`**
-            """)
 
 def logout():
     """Выход из системы"""
@@ -117,10 +106,10 @@ def search_olympiad(query: str, top_k: int = 10) -> Tuple[Optional[List[Dict[str
 
     # Векторизация запроса
     q_emb = model.encode([query], normalize_embeddings=True)
-
+    
     # Косинусное сходство
     sims = (embeddings @ q_emb.T).flatten()
-
+    
     # Берем топ-50 кандидатов для детальной проверки
     top_idx = np.argsort(sims)[::-1][:min(50, len(sims))]
 
@@ -199,7 +188,7 @@ def main_app():
         # Фильтр по уровню
         levels = ["Все уровни", "I уровень", "II уровень", "III уровень", "IV уровень", "Высший уровень", "Не установлен"]
         selected_level = st.selectbox("Уровень мероприятия:", levels)
-
+        
         # Фильтр по направлению
         directions = ["Все направления", "Наука и образование", "Искусство и культура", "Физическая культура и спорт"]
         selected_direction = st.selectbox("Направление:", directions)
